@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
-import Todo from "./components /todo/Todo";
-import MainLayout from "./components /cards/MainLayout";
+import Todo from "./components/todo/Todo";
+import MainLayout from "./components/cards/MainLayout";
 
 
 ReactDOM.render(
