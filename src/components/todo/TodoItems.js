@@ -9,16 +9,21 @@ class TodoItems extends Component {
     }
 
     createTasks(item, index) {
-        return <li   key={item.key}>
-            <div style={{
-                display:'flex'
-            }}
-            onClick={() => this.props.deleteItem(index)}
-
+        return (
+            <li key={item.key}
+                style={{
+                    backgroundColor:item.text
+                }}
+                onClick={() => this.props.handleChangeOnClick(index)}
             >
-                {item.text}
-            </div>
-        </li>
+                <div style={{
+                    display: 'flex'
+                }}
+                >
+                    {item.text}
+                </div>
+            </li>
+        )
     }
 
 
@@ -26,8 +31,6 @@ class TodoItems extends Component {
         let todoEntries = this.props.entries;
         // вернет массив
         let listItems = todoEntries.map(this.createTasks);
-        console.log(typeof listItems);
-        console.log(listItems)
         return (
             <ul className="theList">
                 {listItems}
