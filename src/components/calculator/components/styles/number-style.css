@@ -1,0 +1,16 @@
+.main-style {
+    font-size: 8px;
+    text-align: center;
+    background-color: #eceaea;
+    width: 20px;
+    height: 20px;
+}
+
+.table-style {
+    /*border: 0.05em solid darkred;*/
+}
+
+td {
+    border: 0.05em solid darkred;
+}
+

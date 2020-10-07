@@ -1,19 +1,16 @@
 import React from "react";
 import TodoItems from "./TodoItems";
+import './styles/todoitems.css';
 
-import './styles/todoitems.css'
-
+import {DragDropContext, Draggable} from "react-beautiful-dnd";
 
 class Todo extends React.Component {
-
-
     constructor(props) {
         super(props);
         this.state = {
             items: [],
         }
     }
-
 
     addItem = (e) => {
         let itemArray = this.state.items;
@@ -28,7 +25,7 @@ class Todo extends React.Component {
             });
             this._inputElement.value = "";
         }
-        console.log(this.printHellow);
+        // console.log(this.printHellow);
         e.preventDefault();
 
     }
@@ -51,18 +48,35 @@ class Todo extends React.Component {
         // this.printHello
     }
 
+    onDragEnd = () => {
+
+    };
+
     render() {
         return (
-            <div className="todoListMain">
-                <div className="header">
-                    <form onSubmit={this.addItem}>
-                        <input ref={(a) => this._inputElement = a}
-                               placeholder="введите задачу"/>
-                        <button type="submit">добавить</button>
-                    </form>
+            <DragDropContext
+                onDragEnd={this.onDragEnd}
+            >
+                <div className="todoListMain">
+                    <div className="header">
+                        <form onSubmit={this.addItem}>
+                            <input ref={(a) => this._inputElement = a}
+                                   placeholder="введите задачу"/>
+                            <button type="submit">добавить</button>
+                        </form>
+                    </div>
+
+                    {/*<Draggable draggableId={} index={}>*/}
+                    {/*{(provided) => (*/}
+                        <TodoItems  printHello={this.printHellow} deleteItem={this.handleDeleteOnClick}
+                                   entries={this.state.items}/>
+                    {/*)}*/}
+
+                    {/*</Draggable>*/}
+
                 </div>
-                <TodoItems printHello={this.printHellow} deleteItem={this.handleDeleteOnClick} entries={this.state.items}/>
-            </div>
+
+            </DragDropContext>
         )
     }
 }

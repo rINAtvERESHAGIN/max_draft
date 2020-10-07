@@ -1,4 +1,6 @@
 import React, {Component} from "react";
+import {Droppable} from "react-beautiful-dnd";
+import Item from "./Item";
 
 // import './styles/todoitems.css'
 
@@ -10,19 +12,27 @@ class TodoItems extends Component {
 
     createTasks(item, index) {
         return (
-            <li key={item.key}
-                style={{
-                    backgroundColor:item.text
-                }}
-                onClick={() => this.props.handleChangeOnClick(index)}
-            >
-                <div style={{
-                    display: 'flex'
-                }}
-                >
-                    {item.text}
-                </div>
-            </li>
+            <Droppable droppableId={item.key.toString()}>
+                {(provided) => (
+                    <Item
+                        {...provided.droppableProps}
+                        ref={provided.innerRef}
+                        index={index}
+                    >
+                        <li key={item.key.toString()}
+                            style={{
+                                backgroundColor: item.text
+                            }}
+                            // onClick={() => this.props.handleChangeOnClick(index)}
+                        >
+                            {item.text}
+                        </li>
+
+                        {provided.placeholder}
+                    </Item>
+                )}
+
+            </Droppable>
         )
     }
 

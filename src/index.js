@@ -3,13 +3,15 @@ import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
 import Todo from "./components/todo/Todo";
 import MainLayout from "./components/cards/MainLayout";
+import Main from "./components/calculator/layout/Main";
 
 
 ReactDOM.render(
     // <React.StrictMode>
     <div>
-        {/*<Todo/>*/}
-        <MainLayout/>
+        <Todo/>
+        {/*<MainLayout/>*/}
+        {/*<Main/>*/}
     </div>,
 // </React.StrictMode>,
     document.getElementById('root')

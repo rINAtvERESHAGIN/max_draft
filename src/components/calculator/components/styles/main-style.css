@@ -1,0 +1,13 @@
+.clear{
+    text-align: center;
+    font-size: 10px;
+    padding: 5px 10px 5px 10px;
+    background-color: #eceaea;
+}
+
+.solution{
+    text-align: right;
+    color: #FFFFFF;
+    background-color: #d06a6a;
+    border: 0.05em solid darkred;
+}
