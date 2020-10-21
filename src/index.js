@@ -8,8 +8,9 @@ import * as serviceWorker from './serviceWorker';
 import {Provider} from "react-redux";
 import store from "./components/redux/store";
 import MainDnd from "./components/dndComponents/MainDnd";
-import '@atlaskit/css-reset';
-import MoodLayout from "./MoodMonth/layout/MoodLayout";
+// import '@atlaskit/css-reset';
+// import MoodLayout from "./MoodMonth/layout/MoodLayout";
+import MoodMonth from "./MoodMonth/MoodMonth";
 
 ReactDOM.render(
     // <React.StrictMode>
@@ -20,7 +21,7 @@ ReactDOM.render(
         {/*<Main/>*/}
         {/*<CardsImages/>*/}
         {/*<MainDnd/>*/}
-        <MoodLayout/>
+        <MoodMonth/>
     </Provider>
     ,
 // </React.StrictMode>,

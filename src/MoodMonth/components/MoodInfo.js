@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "styled-components";
+import SimpleCard from "./SimpleCard";
 
 const Container = styled.div`
-    width:100px;
-    height:100px;
+    width:auto;
+    height:auto;
     border:1px solid lightblue;
     
 `;
@@ -12,7 +13,7 @@ const MoodInfo = props => {
 
     return(
         <Container>
-            {props.dayNumber}
+            <SimpleCard datNumber={props.dayNumber}/>
         </Container>
     )
 }

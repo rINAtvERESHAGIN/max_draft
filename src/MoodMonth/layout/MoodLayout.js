@@ -10,7 +10,6 @@ const Container = styled.div`
     align-content: center;
     width:100%;
     height:100%;
-    background-color: lightcoral;
 `;
 
 const MoodLayout = props => {
@@ -52,14 +51,17 @@ const MoodLayout = props => {
 
     return (
         <Container>
-            <table border={2}>
+            <table border={0} cellSpacing={0} style={{width:"100%", height:"100%"}}>
                 <tbody>
                 {equelMonth.map((week, index) => (
                     <tr key={index}>
                         {week.map((day, index) => (
                             <td style={{height: "auto", width: "auto"}}
-                                key={index}>
-                                <MoodInfo key={index} dayNumber={day}/></td>))}
+                                key={index}
+                            >
+
+                                <MoodInfo key={index} dayNumber={day}/>
+                            </td>))}
                     </tr>
                 ))}
                 </tbody>
