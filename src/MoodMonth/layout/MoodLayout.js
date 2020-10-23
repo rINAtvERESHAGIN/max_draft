@@ -10,16 +10,20 @@ const Container = styled.div`
     align-content: center;
     width:100%;
     height:100%;
+    background-color: #e39292;
 `;
 
 const MoodLayout = props => {
 
     const equelMonth = [
-        [1, 2, 3, 4, 5, 6, 7],
-        [8, 9, 10, 11, 12, 13, 14],
-        [15, 16, 17, 18, 19, 20, 21],
-        [22, 23, 24, 25, 26, 27, 28],
-        [29, 30],
+        [1,2,3,4],
+        [5,6,7,8],
+        [9,10,11,12],
+        [13,14,15,16],
+        [17,18,19,20],
+        [21,22,23,24],
+        [25,26,27,28],
+        [29,30]
     ];
 
     const finalDayOfMonth = new Date(2020, new Date().getMonth() + 1, 0).getDate();
@@ -57,8 +61,7 @@ const MoodLayout = props => {
                     <tr key={index}>
                         {week.map((day, index) => (
                             <td style={{height: "auto", width: "auto"}}
-                                key={index}
-                            >
+                                key={index}>
 
                                 <MoodInfo key={index} dayNumber={day}/>
                             </td>))}

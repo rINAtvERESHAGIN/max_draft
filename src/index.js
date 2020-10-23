@@ -12,6 +12,7 @@ import MainDnd from "./components/dndComponents/MainDnd";
 // import MoodLayout from "./MoodMonth/layout/MoodLayout";
 import MoodMonth from "./MoodMonth/MoodMonth";
 
+
 ReactDOM.render(
     // <React.StrictMode>
 
@@ -22,6 +23,8 @@ ReactDOM.render(
         {/*<CardsImages/>*/}
         {/*<MainDnd/>*/}
         <MoodMonth/>
+        
+
     </Provider>
     ,
 // </React.StrictMode>,

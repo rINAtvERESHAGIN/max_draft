@@ -5,6 +5,9 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import {TextField} from "@material-ui/core";
+import Boom from "./Boom";
+import "./Style.css";
 
 const useStyles = makeStyles({
     root: {
@@ -16,11 +19,23 @@ const useStyles = makeStyles({
         transform: 'scale(0.8)',
     },
     title: {
-        fontSize: 14,
+        fontSize: 20,
+        marginLeft: 'auto',
+        marginRight: 'auto',
     },
     pos: {
-        marginBottom: 12,
+        marginBottom: 5,
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignContent: 'center',
     },
+    but: {
+        position:'relative',
+        left:'95%',
+        transform:'translate(-95%, 0)',
+    },
+
 });
 
 export default function SimpleCard(props) {
@@ -35,20 +50,14 @@ export default function SimpleCard(props) {
                 <Typography className={classes.title} color="textSecondary" gutterBottom>
                     Word of the Day {datNumber}
                 </Typography>
-                <Typography variant="h5" component="h2">
-                    be{bull}nev{bull}o{bull}lent
-                </Typography>
-                <Typography className={classes.pos} color="textSecondary">
-                    adjective
-                </Typography>
-                <Typography variant="body2" component="p">
-                    well meaning and kindly.
-                    <br />
-                    {'"a benevolent smile"'}
-                </Typography>
+                <TextField className={classes.pos} size="small" id="outlined-basic" label="" variant="outlined" />
+                <TextField className={classes.pos} size="small" id="outlined-basic" label="" variant="outlined" />
+                <TextField className={classes.pos} size="small" id="outlined-basic" label="" variant="outlined" />
+                <TextField className={classes.pos} size="small" id="outlined-basic" label="" variant="outlined" />
+                <TextField className={classes.pos} size="small" id="outlined-basic" label="" variant="outlined" />
             </CardContent>
             <CardActions>
-                <Button size="small">Learn More</Button>
+                <Button type="submit" className={classes.but} variant="contained">Save</Button>
             </CardActions>
         </Card>
     );
