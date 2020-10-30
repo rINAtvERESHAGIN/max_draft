@@ -6,11 +6,11 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import {CardHeader, IconButton, TextField} from "@material-ui/core";
-import Boom from "./Boom";
 import "./Style.css";
 import {List, ListItem, ListItemText, Divider} from "@material-ui/core";
 import PlusOneIcon from '@material-ui/icons/PlusOne';
 import styled from 'styled-components';
+import MoodInfo from "./MoodInfo";
 
 
 const useStyles = makeStyles(theme => ({
@@ -73,6 +73,7 @@ export default function SimpleCard(props) {
         "waterTextFieldProps": {
             className: classes.pos,
             size: "small",
+            key:1,
             id: "outlined-basic",
             label: "water did you drink?",
             variant: "outlined",
@@ -82,8 +83,10 @@ export default function SimpleCard(props) {
         "vitaminsTextFieldProps1": {
             className: classes.pos,
             size: "small",
+            key:2,
             id: "outlined-basic",
             label: "vitamins did you take?",
+            variant: "outlined",
             value: userInput,
             onChange: (e) => handleOnchange(e)
         },
@@ -92,6 +95,7 @@ export default function SimpleCard(props) {
             size: "small",
             id: "outlined-basic",
             label: "vitamins did you take?",
+            variant: "outlined",
             value: userInput,
             onChange: (e) => handleOnchange(e)
         },
@@ -100,14 +104,31 @@ export default function SimpleCard(props) {
             size: "small",
             id: "outlined-basic",
             label: "vitamins did you take?",
+            variant: "outlined",
             value: userInput,
             onChange: (e) => handleOnchange(e)
         },
-
+        "vitaminsTextFieldProps4": {
+            className: classes.pos,
+            size: "small",
+            id: "outlined-basic",
+            label: "vitamins did you take?",
+            variant: "outlined",
+            value: userInput,
+            onChange: (e) => handleOnchange(e)
+        },
     };
 
     const textFieldCollections = ["waterTextFieldProps", "vitaminsTextFieldProps1", "vitaminsTextFieldProps2", "vitaminsTextFieldProps3",];
 
+    const handleOnclickPlusTextField = () => {
+
+
+
+        textFieldCollections.push("vitaminsTextFieldProps4",);
+        console.log("даун ебаный");
+
+    };
 
     const handleOnClickSwitchView = () => {
         setRepresentation(!representation);
@@ -127,7 +148,7 @@ export default function SimpleCard(props) {
                     </Typography>
 
                     <IconButton>
-                        <PlusOneIcon/>
+                        <PlusOneIcon onClick={handleOnclickPlusTextField}/>
                     </IconButton>
                 </CardHeaderContainer>
 
@@ -160,17 +181,17 @@ export default function SimpleCard(props) {
                         return (<Button className={classes.but}
                                         variant="contained"
                                         onClick={handleOnClickSwitchView}
-
                         >Save</Button>);
                     } else if (representation === true) {
                         return (<Button className={classes.but}
                                         variant="contained"
                                         onClick={handleOnClickSwitchView}
-
                         >Edit</Button>)
                     }
                 })(representation)}
             </CardActions>
+
         </Card>
     );
 }
+
