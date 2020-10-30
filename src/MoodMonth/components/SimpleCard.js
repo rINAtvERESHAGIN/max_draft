@@ -12,50 +12,51 @@ import PlusOneIcon from '@material-ui/icons/PlusOne';
 import styled from 'styled-components';
 import MoodInfo from "./MoodInfo";
 
+import AddNewField from "./AddNewFieldDialog";
 
 const useStyles = makeStyles(theme => ({
-    root: {
-        minWidth: 275,
-    },
-    bullet: {
-        display: 'inline-block',
-        margin: '0 2px',
-        transform: 'scale(0.8)',
-    },
-    title: {
-        fontSize: 20,
-        marginLeft: 'auto',
-        marginRight: 'auto',
-    },
-    pos: {
-        marginBottom: 5,
-        width: "auto",
-        height: "auto",
-    },
-    content: {
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignContent: 'center',
-    },
-    but: {
-        position: 'relative',
-        left: '95%',
-        transform: 'translate(-95%, 0)',
-    },
+  root: {
+    minWidth: 275,
+  },
+  bullet: {
+    display: 'inline-block',
+    margin: '0 2px',
+    transform: 'scale(0.8)',
+  },
+  title: {
+    fontSize: 20,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  },
+  pos: {
+    marginBottom: 5,
+    width: "auto",
+    height: "auto",
+  },
+  content: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignContent: 'center',
+  },
+  but: {
+    position: 'relative',
+    left: '95%',
+    transform: 'translate(-95%, 0)',
+  },
 
-    formTextInput: {
-        flexGrow: 1,
-        width: "auto",
-        height: "auto",
-        '& > *': {
-            margin: theme.spacing(1),
-            width: '25ch'
-        }
-    },
-    list: {
-        // width:
+  formTextInput: {
+    flexGrow: 1,
+    width: "auto",
+    height: "auto",
+    '& > *': {
+      margin: theme.spacing(1),
+      width: '25ch'
     }
+  },
+  list: {
+    // width:
+  }
 }));
 
 const CardHeaderContainer = styled.div`
@@ -64,134 +65,159 @@ const CardHeaderContainer = styled.div`
 
 export default function SimpleCard(props) {
 
-    const classes = useStyles();
-    const {datNumber} = props;
-    const [userInput, setUserInput] = useState('');
-    const [representation, setRepresentation] = useState(false);
+  const classes = useStyles();
+  const {datNumber} = props;
+  const [userInput, setUserInput] = useState('');
+  const [representation, setRepresentation] = useState(false);
 
-    const textFieldInputs = {
-        "waterTextFieldProps": {
-            className: classes.pos,
-            size: "small",
-            key:1,
-            id: "outlined-basic",
-            label: "water did you drink?",
-            variant: "outlined",
-            value: userInput,
-            onChange: (e) => handleOnchange(e),
-        },
-        "vitaminsTextFieldProps1": {
-            className: classes.pos,
-            size: "small",
-            key:2,
-            id: "outlined-basic",
-            label: "vitamins did you take?",
-            variant: "outlined",
-            value: userInput,
-            onChange: (e) => handleOnchange(e)
-        },
-        "vitaminsTextFieldProps2": {
-            className: classes.pos,
-            size: "small",
-            id: "outlined-basic",
-            label: "vitamins did you take?",
-            variant: "outlined",
-            value: userInput,
-            onChange: (e) => handleOnchange(e)
-        },
-        "vitaminsTextFieldProps3": {
-            className: classes.pos,
-            size: "small",
-            id: "outlined-basic",
-            label: "vitamins did you take?",
-            variant: "outlined",
-            value: userInput,
-            onChange: (e) => handleOnchange(e)
-        },
-        "vitaminsTextFieldProps4": {
-            className: classes.pos,
-            size: "small",
-            id: "outlined-basic",
-            label: "vitamins did you take?",
-            variant: "outlined",
-            value: userInput,
-            onChange: (e) => handleOnchange(e)
-        },
-    };
+  const [textFieldCollections, setTextFieldCollection] = useState([]);
 
-    const textFieldCollections = ["waterTextFieldProps", "vitaminsTextFieldProps1", "vitaminsTextFieldProps2", "vitaminsTextFieldProps3",];
+  const [open, setOpen] = useState(false);
+  const [name, setName] = useState('');
+  const [tech, setTech] = useState('');
 
-    const handleOnclickPlusTextField = () => {
+  const [newFieldObj] = useState({});
+
+  const [textFieldInputs, setTextFieldInputs] = useState({});
 
 
+//todo need understand
+  const handleSetName = (event) => {
+    setName(event.target.value);
+  };
+//todo need understand
+  const handleSetTech = (event) => {
+    setTech(event.target.value);
+  };
+//todo need understand
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+//todo need understand
+  const handleClose = () => {
+    setOpen(false);
+  };
+  //todo need understand
+  const handleAddField = () => {
 
-        textFieldCollections.push("vitaminsTextFieldProps4",);
-        console.log("даун ебаный");
 
-    };
-
-    const handleOnClickSwitchView = () => {
-        setRepresentation(!representation);
-    };
-
-    const handleOnchange = (event) => {
-        setUserInput(event.target.value);
+    const newField = {
+      [tech]: {
+        id: tech,
+        className: classes.pos,
+        size: "small",
+        label: name,
+        variant: "outlined",
+        value: userInput,
+        onChange: (e) => handleOnchange(e),
+      },
     };
 
 
-    return (
-        <Card className={classes.root}>
-            <CardContent className={classes.content}>
-                <CardHeaderContainer>
-                    <Typography className={classes.title} color="textSecondary" gutterBottom>
-                        Word of the Day {datNumber}
-                    </Typography>
+    setTextFieldCollection(textFieldCollections.concat(newField[tech].id));
 
-                    <IconButton>
-                        <PlusOneIcon onClick={handleOnclickPlusTextField}/>
-                    </IconButton>
-                </CardHeaderContainer>
+    setTextFieldInputs({...textFieldInputs, ...newField});
+
+    handleClose();
+    handleClearField();
+  };
+  //todo need understand
+  const handleClearField = () => {
+    setTech('');
+    setName('');
+  };
+
+//todo need understand
+  const handleOnclickPlusTextField = () => {
+    handleClickOpen();
+  };
 
 
-                {((representation) => {
-                    if (representation === false) {
-                        return (
-                            textFieldCollections.map((textFieldId, index) => (
-                                <form key={index} className={classes.formTextInput} noValidate autoComplete="off">
-                                    <TextField key={index} {...textFieldInputs[textFieldId]}/>
-                                </form>
-                            ))
-                        );
-                    } else if (representation === true) {
-                        return (
-                            <List component="nav" className={classes.root} aria-label="mailbox folders">
-                                <ListItem button>
-                                    <ListItemText primary={userInput}/>
-                                </ListItem>
-                            </List>
-                        );
-                    }
-                })(representation)}
+  const handleOnClickSwitchView = () => {
+    setRepresentation(!representation);
+  };
 
-            </CardContent>
+  const handleOnchange = (event) => {
+    setUserInput(event.target.value);
+  };
 
-            <CardActions>
-                {((representation) => {
-                    if (representation === false) {
-                        return (<Button className={classes.but}
-                                        variant="contained"
-                                        onClick={handleOnClickSwitchView}
-                        >Save</Button>);
-                    } else if (representation === true) {
-                        return (<Button className={classes.but}
-                                        variant="contained"
-                                        onClick={handleOnClickSwitchView}
-                        >Edit</Button>)
-                    }
-                })(representation)}
-            </CardActions>
 
-        </Card>
-    );
+  return (
+    <Card className={classes.root}>
+      <CardContent className={classes.content}>
+        <CardHeaderContainer>
+          <Typography className={classes.title} color="textSecondary" gutterBottom>
+            Word of the Day {datNumber}
+          </Typography>
+
+          <IconButton onClick={handleOnclickPlusTextField}>
+            <PlusOneIcon/>
+          </IconButton>
+        </CardHeaderContainer>
+
+
+        {(() => {
+          if (textFieldCollections.length > 0) {
+            return (((representation) => {
+                if (representation === false) {
+                  return (
+                    textFieldCollections.map((textFieldId, index) => (
+                      <form key={index} className={classes.formTextInput} noValidate autoComplete="off">
+                        <TextField key={index} {...textFieldInputs[textFieldId]}/>
+                      </form>
+                    ))
+                  );
+                } else if (representation === true) {
+                  return (
+                    <List component="nav" className={classes.root} aria-label="mailbox folders">
+                      <ListItem button>
+                        <ListItemText primary={userInput}/>
+                      </ListItem>
+                    </List>
+                  );
+                }
+              })(representation)
+            )
+          } else if (textFieldCollections.length === 0) {
+            return (<div>Click +1 to add field</div>)
+          }
+        })()}
+
+
+      </CardContent>
+
+      <CardActions>
+        {((representation) => {
+          if (representation === false) {
+            return (<Button className={classes.but}
+                            variant="contained"
+                            onClick={handleOnClickSwitchView}
+            >Save</Button>);
+          } else if (representation === true) {
+            return (<Button className={classes.but}
+                            variant="contained"
+                            onClick={handleOnClickSwitchView}
+            >Edit</Button>)
+          }
+        })(representation)}
+      </CardActions>
+
+
+      {/*//todo need understand*/}
+      <AddNewField open={open}
+                   handleClose={handleClose}
+
+                   name={name}
+                   handleSetName={handleSetName}
+
+                   tech={tech}
+                   handleSetTech={handleSetTech}
+
+                   handleAddField={handleAddField}
+      />
+      {/*//todo need understand*/}
+
+    </Card>
+  );
 }
 
