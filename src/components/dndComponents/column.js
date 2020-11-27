@@ -22,27 +22,30 @@ const TaskList = styled.div`
 
 
 const Column = props => {
-    return (
-        <Container>
-            <Title>{props.column.title}</Title>
+  return (
+    <Container>
+      <Title>{props.column.title}</Title>
 
-            <Droppable droppableId={props.column.id}>
-                {(provided, snapshot) => (
-                    <TaskList
-                        // innerRef={provided.innerRef}
-                        ref={provided.innerRef}
-                        {...provided.droppableProps}
-                        isDraggingOver={snapshot.isDraggingOver}
-                    >
-                        {props.task.map((task, index) => (
-                            <Task index={index} key={task.id} task={task}/> /// !!!!!!
-                        ))}
-                        {provided.placeholder}
-                    </TaskList>
-                )}
-            </Droppable>
-        </Container>
-    );
+      <Droppable droppableId={props.column.id}>
+        {(provided, snapshot) => (
+          <TaskList
+            // innerRef={provided.innerRef}
+            ref={provided.innerRef}
+            {...provided.droppableProps}
+
+            isDraggingOver={snapshot.isDraggingOver}
+          >
+            {props.task.map((task, index) => (
+              <Task index={index} key={task.id} task={task}/> /// !!!!!!
+            ))}
+
+            у
+
+          </TaskList>
+        )}
+      </Droppable>
+    </Container>
+  );
 }
 
 export default Column;

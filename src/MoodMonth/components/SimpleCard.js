@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -67,39 +67,53 @@ export default function SimpleCard(props) {
 
   const classes = useStyles();
   const {datNumber} = props;
+
   const [userInput, setUserInput] = useState('');
   const [representation, setRepresentation] = useState(false);
 
-  const [textFieldCollections, setTextFieldCollection] = useState([]);
+  const [textFieldCollections, setTextFieldCollection] = useState(["example"]);
 
   const [open, setOpen] = useState(false);
   const [name, setName] = useState('');
   const [tech, setTech] = useState('');
 
-  const [newFieldObj] = useState({});
 
-  const [textFieldInputs, setTextFieldInputs] = useState({});
+  //
+  const [textFieldInputsm, setTextFieldInputsm] = useState({
+
+  });
+  // //
+  const textFieldInputs = {
+    "example": {
+      id: "example",
+      className: classes.pos,
+      size: "small",
+      label: "example",
+      variant: "outlined",
+      value: userInput,
+      onChange: (e) => handleOnchange(e),
+    },
+  };
 
 
-//todo need understand
+  // useEffect((() => {
+  //   console.log(textFieldInputs);
+  // }), [textFieldInputs])
+
   const handleSetName = (event) => {
     setName(event.target.value);
   };
-//todo need understand
+
   const handleSetTech = (event) => {
     setTech(event.target.value);
   };
-//todo need understand
   const handleClickOpen = () => {
     setOpen(true);
   };
-//todo need understand
   const handleClose = () => {
     setOpen(false);
   };
-  //todo need understand
   const handleAddField = () => {
-
 
     const newField = {
       [tech]: {
@@ -114,20 +128,22 @@ export default function SimpleCard(props) {
     };
 
 
-    setTextFieldCollection(textFieldCollections.concat(newField[tech].id));
+    textFieldInputs[tech] = newField[tech];
+    setTextFieldInputsm({...textFieldInputs, ...newField});
 
-    setTextFieldInputs({...textFieldInputs, ...newField});
+
+    console.log(textFieldInputs);
+
+    setTextFieldCollection(textFieldCollections.concat(newField[tech].id));
 
     handleClose();
     handleClearField();
   };
-  //todo need understand
   const handleClearField = () => {
     setTech('');
     setName('');
   };
 
-//todo need understand
   const handleOnclickPlusTextField = () => {
     handleClickOpen();
   };
@@ -140,7 +156,6 @@ export default function SimpleCard(props) {
   const handleOnchange = (event) => {
     setUserInput(event.target.value);
   };
-
 
   return (
     <Card className={classes.root}>
@@ -161,9 +176,9 @@ export default function SimpleCard(props) {
             return (((representation) => {
                 if (representation === false) {
                   return (
-                    textFieldCollections.map((textFieldId, index) => (
+                    Object.values(textFieldInputs).map((textFieldId, index) => (
                       <form key={index} className={classes.formTextInput} noValidate autoComplete="off">
-                        <TextField key={index} {...textFieldInputs[textFieldId]}/>
+                        <TextField key={index} {...textFieldId}/>
                       </form>
                     ))
                   );
@@ -182,8 +197,6 @@ export default function SimpleCard(props) {
             return (<div>Click +1 to add field</div>)
           }
         })()}
-
-
       </CardContent>
 
       <CardActions>
@@ -206,13 +219,10 @@ export default function SimpleCard(props) {
       {/*//todo need understand*/}
       <AddNewField open={open}
                    handleClose={handleClose}
-
                    name={name}
                    handleSetName={handleSetName}
-
                    tech={tech}
                    handleSetTech={handleSetTech}
-
                    handleAddField={handleAddField}
       />
       {/*//todo need understand*/}

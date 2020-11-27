@@ -10,11 +10,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 function AddNewField(props) {
   const {handleClose, open} = props;
-//todo need understand
   const {name, handleSetName} = props;
-  //todo need understand
   const {tech, handleSetTech} = props;
-//todo need understand
   const {handleAddField} = props;
   // const {handleOnclickNewTextField,setHandleOnclickNewTextField} = props;
   //

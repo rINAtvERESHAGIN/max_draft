@@ -11,24 +11,19 @@ import MainDnd from "./components/dndComponents/MainDnd";
 // import '@atlaskit/css-reset';
 // import MoodLayout from "./MoodMonth/layout/MoodLayout";
 import MoodMonth from "./MoodMonth/MoodMonth";
-
+import TextFieldCustom from "./TextFieldLabelLeftSide/TextFiledCustom";
+import BiographyInformation from "./BiographyInformation/BiographyInformation";
+import { ConfirmProvider } from 'material-ui-confirm';
+import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
 
 ReactDOM.render(
-    // <React.StrictMode>
-
+  <ConfirmProvider>
     <Provider store={store}>
-        {/*<Todo/>*/}
-        {/*<MainLayout/>*/}
-        {/*<Main/>*/}
-        {/*<CardsImages/>*/}
-        {/*<MainDnd/>*/}
-        <MoodMonth/>
-        
-
-    </Provider>
-    ,
-// </React.StrictMode>,
-    document.getElementById('root')
+    <BiographyInformation/>
+  </Provider>
+  </ConfirmProvider>
+  ,
+  document.getElementById('root')
 )
 ;
 
