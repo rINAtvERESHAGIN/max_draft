@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from "react";
-import {Layout, Card} from "antd";
+import React, {useEffect, useState} from "react";
+import {Card, Layout} from "antd";
 import {withStyles} from "@material-ui/core";
 import BiographyInformationInput from "./BiographyInformationInput";
 import Container from "./Container";
@@ -21,7 +21,7 @@ const BiographyInformation = props => {
   const [address, setAddress] = useState('');
   const [personalGoals, setPersonalGoals] = useState('');
 
-  const [isSave,setIsSave] = useState(false);
+  const [isSave, setIsSave] = useState(false);
 
   const [isEmptyDateOfBirth, setIsEmptyDateOfBirth] = useState(true);
   // const [isEmptyDateOfBirth, setIsEmptyDateOfBirth] = useState(true);
@@ -121,37 +121,6 @@ const BiographyInformation = props => {
                                            disabled={!address}
                 />
               </>)}
-
-            {/*<div className="site-card-border-less-wrapper">*/}
-            {/*  <Card title="Ваши данные" bordered={true} style={{width: 300}}>*/}
-            {/*    <p>Имя - {name}</p>*/}
-            {/*    <p>Дата рождения - {dateOfBirth}</p>*/}
-            {/*    <p>Адресс - {address}</p>*/}
-            {/*    <p>Ваши последние достижения - {personalGoals}</p>*/}
-            {/*  </Card>*/}
-            {/*</div>*/}
-
-            {/*<BiographyInformationInput value={name}*/}
-            {/*                           onChange={handleChangeName}*/}
-            {/*                           placeholder={"Введите ваше имя"}*/}
-            {/*                           disabled={false}*/}
-            {/*/>*/}
-            {/*<BiographyInformationInput value={dateOfBirth}*/}
-            {/*                           onChange={handleChangeDateOfBirth}*/}
-            {/*                           placeholder={"Введите дату рождения"}*/}
-            {/*                           disabled={!name}*/}
-            {/*/>*/}
-
-            {/*<BiographyInformationInput value={address}*/}
-            {/*                           onChange={handleChangeAddress}*/}
-            {/*                           placeholder={"Введите свой адрес"}*/}
-            {/*                           disabled={!dateOfBirth}*/}
-            {/*/>*/}
-            {/*<BiographyInformationInput value={personalGoals}*/}
-            {/*                           onChange={handleChangePersonalGoals}*/}
-            {/*                           placeholder={"Введите личные достижения"}*/}
-            {/*                           disabled={!address}*/}
-            {/*/>*/}
           </>
         </Container>
 
