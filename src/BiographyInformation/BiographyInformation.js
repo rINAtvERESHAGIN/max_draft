@@ -1,9 +1,12 @@
 import React, {useEffect, useState} from "react";
-import {Card, Layout} from "antd";
+import {Button, Card, Layout} from "antd";
 import {withStyles} from "@material-ui/core";
 import BiographyInformationInput from "./BiographyInformationInput";
 import Container from "./Container";
 import {useConfirm} from "material-ui-confirm";
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+// import Button from '@material-ui/core/Button';
+import {ArrowRightOutlined, EditOutlined, StopOutlined} from '@ant-design/icons';
 
 const {Header, Footer, Sider, Content} = Layout;
 
@@ -16,16 +19,19 @@ const BiographyInformation = props => {
   const {classes} = props;
   const confirm = useConfirm();
 
+  const [fullName, setFullName] = useState('');
   const [name, setName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [patronymic, setPatronymic] = useState('');
+
   const [dateOfBirth, setDateOfBirth] = useState('');
   const [address, setAddress] = useState('');
   const [personalGoals, setPersonalGoals] = useState('');
 
   const [isSave, setIsSave] = useState(false);
+  //for views
+  const [representationFullName, setRepresentationFullName] = useState('');
 
-  const [isEmptyDateOfBirth, setIsEmptyDateOfBirth] = useState(true);
-  // const [isEmptyDateOfBirth, setIsEmptyDateOfBirth] = useState(true);
-  // const [isEmptyDateOfBirth, setIsEmptyDateOfBirth] = useState(true);
 
   useEffect(() => {
     if (personalGoals !== '') {
@@ -38,6 +44,7 @@ const BiographyInformation = props => {
         })
           .then(() => {
             setIsSave(!isSave);
+            handleChangeAcronim();
           })
           .catch(() => {
             handleClearAllData();
@@ -48,29 +55,26 @@ const BiographyInformation = props => {
   }, [personalGoals]);
 
   useEffect(() => {
-    if (name === '') {
-      setIsEmptyDateOfBirth(true);
-    } else {
-      setIsEmptyDateOfBirth(false);
+    try {
+      if (fullName !== ' ') {
+        setFullName('');
+      }
+    } catch (e) {
+      console.log(e);
     }
-  }, [name]);
+  }, [fullName]);
 
 
   const handleClearAllData = () => {
-    // написать метод который будет очищать значение всех переменных
-    setName('');
+    setFullName('');
     setAddress("");
     setDateOfBirth("");
     setPersonalGoals("");
   };
 
-  const handleUnblockField = (unblock) => {
-    unblock();
-  };
 
   const handleChangeName = (e) => {
-    setName(e.target.value);
-
+    setFullName(e.target.value);
   };
   const handleChangeDateOfBirth = (e) => {
     setDateOfBirth(e.target.value);
@@ -82,6 +86,53 @@ const BiographyInformation = props => {
     setPersonalGoals(e.target.value);
   };
 
+  const handleChangeAcronim = () => {
+    let nameMass = [];
+    try {
+      if (fullName === '') {
+
+      } else {
+        nameMass = fullName.split(' ');
+      }
+      if (nameMass.length === 3) {
+        nameMass.map((str, index) => {
+          if (index > 0) {
+            nameMass[index] = str.substring(0, 1) + '.';
+          }
+          return str;
+        })
+      } else {
+
+      }
+      setFullName(nameMass.join(' '));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const handleEditFields = () => {
+    setIsSave(!isSave);
+  };
+
+  const handleCancel = () => {
+    setIsSave(!isSave);
+  };
+
+  const deleteExcessWord = () => {
+    // метод будет удалять 4 слово лишнее;
+  };
+
+  const nameLastNamePatronymicToUpperCase = () => {
+    // метод будет переводить первые буквы значения
+    // имени// фамилии// отчества// в большие буквы
+    let massFullName = [];
+    massFullName = fullName.split(' ');
+    // if (massFullName)
+    // пример верещагин ринат ирекович => Верещагин Ринат Ирекович
+
+    // ринат => Ринат верещагин => Верещагин etc.
+  };
+
 
   return (
     <Layout>
@@ -89,25 +140,42 @@ const BiographyInformation = props => {
       <Content>
         <Container> {/*parent*/}
           <>
-
             {isSave ? (<div className="site-card-border-less-wrapper">
-              <Card title="Ваши данные" bordered={true} style={{width: 300}}>
-                <p>Имя - {name}</p>
-                <p>Дата рождения - {dateOfBirth}</p>
-                <p>Адресс - {address}</p>
-                <p>Ваши последние достижения - {personalGoals}</p>
+              <Card title="Ваши данные"
+                    bordered={true}
+                    style={{width: 300}}
+                    extra={
+                      <Button onClick={handleEditFields} type="primary" shape="circle" icon={<EditOutlined/>}/>
+                    }
+              >
+                <p>ФИО <ArrowRightOutlined/>{fullName}</p>
+                <p>Дата рождения <ArrowRightOutlined/> {dateOfBirth}</p>
+                <p>Адресс <ArrowRightOutlined/> {address}</p>
+                <p>Ваши последние достижения <ArrowRightOutlined/> {personalGoals}</p>
+
               </Card>
             </div>) : (
-              <>
-                <BiographyInformationInput value={name}
+              <Card title="Введите ваши данные"
+                    bordered={true}
+                    style={{width: 300}}
+                    extra={<Button
+                      onClick={handleCancel}
+                      type="primary"
+                      shape="circle"
+                      icon={<StopOutlined/>}
+                      disabled={(fullName === '' || dateOfBirth === '' || address === '' || personalGoals === '')}
+                    />
+                    }
+              >
+                <BiographyInformationInput value={fullName}
                                            onChange={handleChangeName}
-                                           placeholder={"Введите ваше имя"}
+                                           placeholder={"Введите ваше ФИО"}
                                            disabled={false}
                 />
                 <BiographyInformationInput value={dateOfBirth}
                                            onChange={handleChangeDateOfBirth}
                                            placeholder={"Введите дату рождения"}
-                                           disabled={!name}
+                                           disabled={!fullName}
                 />
 
                 <BiographyInformationInput value={address}
@@ -120,14 +188,10 @@ const BiographyInformation = props => {
                                            placeholder={"Введите личные достижения"}
                                            disabled={!address}
                 />
-              </>)}
+              </Card>)}
           </>
         </Container>
-
       </Content>
-      <Footer>
-
-      </Footer>
     </Layout>
   );
 };
