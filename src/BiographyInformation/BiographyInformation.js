@@ -4,7 +4,9 @@ import {withStyles} from "@material-ui/core";
 import BiographyInformationInput from "./BiographyInformationInput";
 import Container from "./Container";
 import {useConfirm} from "material-ui-confirm";
-
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+import Button from '@material-ui/core/Button';
+import {ArrowRightOutlined} from '@ant-design/icons';
 const {Header, Footer, Sider, Content} = Layout;
 
 const styles = theme => ({
@@ -22,6 +24,7 @@ const BiographyInformation = props => {
   const [personalGoals, setPersonalGoals] = useState('');
 
   const [isSave,setIsSave] = useState(false);
+
 
   const [isEmptyDateOfBirth, setIsEmptyDateOfBirth] = useState(true);
   // const [isEmptyDateOfBirth, setIsEmptyDateOfBirth] = useState(true);
@@ -81,6 +84,20 @@ const BiographyInformation = props => {
   const handleChangePersonalGoals = (e) => {
     setPersonalGoals(e.target.value);
   };
+  const handleOnclicDeliteAll = () => {
+    setName('');
+  }
+
+  const handleOnclicDeliteFourth = () => {
+    setName(name.split(' ')[0,1,2]);
+  }
+
+  // const fioWordNum = (name) => {
+  //   console.log('Yokyhi');
+  //   if (name.split(" ").length === 4) {
+  //     return ;
+  //   }
+  // };
 
 
   return (
@@ -92,16 +109,17 @@ const BiographyInformation = props => {
 
             {isSave ? (<div className="site-card-border-less-wrapper">
               <Card title="Ваши данные" bordered={true} style={{width: 300}}>
-                <p>Имя - {name}</p>
-                <p>Дата рождения - {dateOfBirth}</p>
-                <p>Адресс - {address}</p>
-                <p>Ваши последние достижения - {personalGoals}</p>
+                <p>ФИО <ArrowRightOutlined/> {name.split(' ')[0]}</p>
+
+                <p>Дата рождения <ArrowRightOutlined/> {dateOfBirth}</p>
+                <p>Адресс <ArrowRightOutlined/> {address}</p>
+                <p>Ваши последние достижения <ArrowRightOutlined/> {personalGoals}</p>
               </Card>
             </div>) : (
               <>
                 <BiographyInformationInput value={name}
                                            onChange={handleChangeName}
-                                           placeholder={"Введите ваше имя"}
+                                           placeholder={"Введите ваше ФИО"}
                                            disabled={false}
                 />
                 <BiographyInformationInput value={dateOfBirth}
@@ -120,7 +138,16 @@ const BiographyInformation = props => {
                                            placeholder={"Введите личные достижения"}
                                            disabled={!address}
                 />
-              </>)}
+                {(() => {if (name.split(" ").length === 4)
+               return (<ButtonGroup disableElevation variant="contained" color="primary" >
+                <Button onClick={handleOnclicDeliteAll}>Удалить все</Button>
+                <Button onClick={handleOnclicDeliteFourth}>Удалить четвертое слово</Button>
+              </ButtonGroup>)
+                })()}
+
+
+              </>)
+            }
 
             {/*<div className="site-card-border-less-wrapper">*/}
             {/*  <Card title="Ваши данные" bordered={true} style={{width: 300}}>*/}
