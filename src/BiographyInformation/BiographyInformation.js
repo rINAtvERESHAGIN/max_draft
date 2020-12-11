@@ -56,8 +56,9 @@ const BiographyInformation = props => {
 
   useEffect(() => {
     try {
-      if (fullName !== ' ') {
+      if (/^\s/.test(fullName)) {
         setFullName('');
+        console.log('in if');
       }
     } catch (e) {
       console.log(e);
@@ -74,7 +75,13 @@ const BiographyInformation = props => {
 
 
   const handleChangeName = (e) => {
-    setFullName(e.target.value);
+
+    try {
+      console.log(e.target.value);
+      setFullName(e.target.value);
+    } catch (e) {
+      console.error(e);
+    }
   };
   const handleChangeDateOfBirth = (e) => {
     setDateOfBirth(e.target.value);

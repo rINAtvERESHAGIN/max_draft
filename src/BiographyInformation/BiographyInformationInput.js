@@ -6,7 +6,7 @@ const BiographyInformationInput = props => {
   const {onChange} = props;
   const {placeholder} = props;
   const {disabled} = props;
-  // console.log(props);
+
   return (
     <>
       <Input placeholder={placeholder}
